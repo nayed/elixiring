@@ -1,4 +1,14 @@
 defmodule Flatten do
+  @doc """
+  Flatten an arbitrarily nested lists
+
+  ## Examples
+
+      iex> Flatten.flatten [[1, 2], [3], [4, 5]]
+      [1, 2, 3, 4, 5]
+      iex> Flatten.flatten [1, 2, 3, 4, 5]
+      [1, 2, 3, 4, 5]
+  """
   def flatten([]), do: []
 
   def flatten([h|t]) when is_list(h), do: h ++ flatten(t)
