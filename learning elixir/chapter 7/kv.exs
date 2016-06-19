@@ -2,7 +2,7 @@ defmodule KV do
   use GenServer
 
   def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, [], opts)
+    GenServer.start_link(__MODULE__, [], [name: __MODULE__] ++ opts)
   end
 
   def init(_) do
@@ -15,5 +15,13 @@ defmodule KV do
 
   def handle_call({:get, key}, _from, dictionary) do
     {:reply, Map.get(dictionary, key), dictionary}
+  end
+
+  def put(key, value) do
+    GenServer.call(__MODULE__, {:put, key, value})
+  end
+
+  def get(key) do
+    GenServer.call(__MODULE__, {:get, key})
   end
 end
